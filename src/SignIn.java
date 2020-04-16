@@ -233,8 +233,8 @@ public class SignIn extends DataLoader {
     boolean loop = true;
     while (loop) {
       System.out.println("Enter one of the following options: \n1. Look for Movies\n2. Look for Theaters\n3. Look for Plays\n" +
-              "4. Purchase a Movie Ticket\n5. Purchase a Play Ticket\n6. Leave a Review\n7. Account Settings\n" +
-              "8. Sign Out\n (1, 2, 3, 4, 5, 6, 7, 8)");
+              "4. Purchase a Movie Ticket\n5. Purchase a Play Ticket\n6. Leave a Review\n7. Display Reviews\n8. Account Settings\n" +
+              "9. Sign Out\n (1, 2, 3, 4, 5, 6, 7, 8, 9)");
       String input = k.nextLine();
       switch (input) {
         case "1":
@@ -254,11 +254,13 @@ public class SignIn extends DataLoader {
           break;
         case "6":
           helper.addReview(email);
-          break;
         case "7":
-          helper.accountSettings(email);
+          helper.displayReviews(email);
           break;
         case "8":
+          helper.accountSettings(email);
+          break;
+        case "9":
           signed_in_user_email = "";
           signed_in_status = "";
           mainLoop = false;

@@ -231,8 +231,7 @@ public class Helper extends DataRemover {
         }
       }
       System.out.println(type + " number " + i + "\n" + type + " name: " + movie.getName() + "\n" + type + " ID: " + movie.getId() + "\n" + type + " Genre: "
-              + movie.getGenre() + "\n" + type + " Rating: " + movie.getRating() + "\n" + type);
-      System.out.println("Desscription: ");
+              + movie.getGenre() + "\n" + type + " Rating: " + movie.getRating() + "\n" + type + " Description: ");
       if (description.length() > 196) {
         for (int l = 0; l < 196; l++) {
           System.out.print(desc[l]);
@@ -244,9 +243,8 @@ public class Helper extends DataRemover {
             System.out.print(desc[k]);
           }
         }
-        System.out.println();
       } else {
-        System.out.print(description);
+        System.out.println(description);
       }
       int num_showTime = 0;
       num_showTime = showTimeNumberEvent(num_showTime, movie.getName());
@@ -254,7 +252,7 @@ public class Helper extends DataRemover {
       getShowTimeEvent(showTimeArray, movie.getName());
       for (int j = 0; j < showTimeArray.length; j++) {
         int k = j + 1;
-        System.out.println("Show Time " + k + ": \n" + showTimeArray[j]);
+        System.out.println("\nShow Time " + k + ": \n" + showTimeArray[j]);
       }
       System.out.println();
     }
@@ -385,7 +383,7 @@ public class Helper extends DataRemover {
     for (int i = 0; i < num; i++) {
       if (getTheaterName(theater_name) && getEventName(movie_name)) {
       int num_showTime = 0;
-      num_showTime = showTimeNumber(num_showTime, movie_name, theater_name);
+      num_showTime = showTimeNumber(movie_name, theater_name);
       String[] showTimeArray = new String[num_showTime];
       getShowTimeSpecific(showTimeArray, movie_name, theater_name);
       String str_price = "";
@@ -504,7 +502,7 @@ public class Helper extends DataRemover {
           String view = input("Would you wish to see the reviews? (Y or N)");
           switch (view.toLowerCase()) {
             case "y":
-              System.out.println("Name:" + name + "\nReview: " + description + "\nRating: " + rating);
+              displayReviews(user_email);
               break;
             case "n":
               break;
@@ -516,6 +514,44 @@ public class Helper extends DataRemover {
           break;
       }
     }
+  }
+
+  public void displayReviews(String email) {
+    String response = input("Would you like to view\n1. Movie reviews\n2. Play reviews\n3. Theater reviews\n4. All reviews\n(1, 2, 3, 4)\n");
+    String type = "";
+    int len = 0, check = 0;
+    switch (response) {
+      case "1":
+        type = "Movie";
+        len = getNumReviewsType(email, type, len);
+        break;
+      case "2":
+        type = "Play";
+        len = getNumReviewsType(email, type, len);
+        break;
+      case "3":
+        type = "Theater";
+        len = getNumReviewsType(email, type, len);
+        break;
+      case "4":
+        check = 1;
+        break;
+    }
+    if (check == 1) {
+      len = getNumReviewsAll(email, len);
+      String[] reviewArray = new String[len];
+      displayReviewsAllJSON(email, reviewArray);
+      for (int i = 0; i < len; i++) {
+        System.out.println(reviewArray[i]);
+      }
+    } else {
+      String[] reviewArray = new String[len];
+      displayReviewsTypeJSON(email, type, reviewArray);
+      for (int i = 0; i < len; i++) {
+        System.out.println(reviewArray[i]);
+      }
+    }
+
   }
 
   /**

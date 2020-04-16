@@ -13,7 +13,7 @@ public class Events {
   /**
    * Loads movie lists into the array from json files.
    */
-  private Events() {
+  public Events() {
     movieList = DataLoader.loadMovie();
     playList = DataLoader.loadPlay();
   }

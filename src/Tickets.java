@@ -6,7 +6,7 @@ public class Tickets {
   private static ArrayList<SingleTicket> ticketList = new ArrayList<SingleTicket>();
 
   /* loads tickets information into the array from the json files */
-  private Tickets() {
+  public Tickets() {
     ticketList = DataLoader.loadTicket();
   }
 

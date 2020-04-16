@@ -3,7 +3,7 @@ public class SingleShowTime {
   public String name, type, theater, showTime;
 
   /* constructor for this class which takes in string variables as is paramter and sets it to the variable defined in the class */
-  public SingleShowTime(String name, String type, String theater, String showTime) {
+  public SingleShowTime(String name, String showTime, String theater, String type) {
     this.name = name;
     this.type = type;
     this.theater = theater;

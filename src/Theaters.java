@@ -7,7 +7,7 @@ public class Theaters {
   private static ArrayList<SingleTheater> theaterList1 = new ArrayList<SingleTheater>();
 
   /*loads Theaters information into the array from the json file */
-  private Theaters() {
+  public Theaters() {
     theaterList = DataLoader.loadTheater();
   }
 

@@ -9,7 +9,7 @@ public class ShowTimes {
   private static ArrayList<SingleShowTime> showTime1 = new ArrayList<SingleShowTime>();
 
   /*constructor, loads data from json file to the array lists */
-  private ShowTimes() {
+  public ShowTimes() {
     showMovieList = DataLoader.loadShowTimesMovies();
     showPlayList = DataLoader.loadShowTimesPlays();
   }
@@ -47,15 +47,15 @@ public class ShowTimes {
 
   /* adds showTimes to the showMovieList through the json input and calls in save ShowTims
    from DataWriter class */
-  public void addShowTimeMovie(String name, String type, String theater, String showTime) {
-    showMovieList.add(new SingleShowTime(name, type, theater, showTime));
+  public void addShowTimeMovie(String name, String theater, String type, String showTime) {
+    showMovieList.add(new SingleShowTime(name, theater, type, showTime));
     DataWriter.saveShowTimes();
   }
 
   /* adds plays to the showplayList through the json input and calls in save ShowTims
      from DataWriter class  */
   public void addShowTimePlay(String name, String type, String theater, String showTime) {
-    showPlayList.add(new SingleShowTime(name, type, theater, showTime));
+    showPlayList.add(new SingleShowTime(name, theater, type, showTime));
     DataWriter.saveShowTimes();
   }
 

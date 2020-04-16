@@ -625,6 +625,41 @@ public class DataLoader extends DataWriter {
   }
 
   /**
+   * This method takes in 3 params and returns param 3, if param1 matches the the email of the user and param2 to the type
+   * present in the review json file.
+   * Increments param3 on every match.
+   * This is done to determine the size of the reviews array by using param2.
+   * @param1 email_user
+   * @param2 type
+   * @param3 num_reviews
+   * @return
+   */
+  public static int getNumReviewsType(String email_user, String type, int num_reviews) {
+    int number_of_reviews = 0;
+    try {
+      FileReader reader = new FileReader(REVIEW_FILE_NAME);
+      JSONParser parser = new JSONParser();
+      JSONArray reviewJSON = (JSONArray)new JSONParser().parse(reader);
+
+      for(int i=0; i < reviewJSON.size(); i++) {
+        JSONObject review_JSON = (JSONObject)reviewJSON.get(i);
+        String email = (String)review_JSON.get(REVIEW_EMAIL);
+        String type1 = (String)review_JSON.get(REVIEW_TYPE);
+        if (email_user.equals(email) && type.equals(type1)) {
+          number_of_reviews++;
+        }
+      }
+      num_reviews = number_of_reviews;
+      return num_reviews;
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return num_reviews;
+  }
+
+
+  /**
    * This method takes in 2 params and returns param 2, if param1 matches the the email of the user present in the review json file.
    * Increments param2 on every match.
    * This is done to determine the size of the reviews array by using param2.
@@ -632,7 +667,7 @@ public class DataLoader extends DataWriter {
    * @param2 num_reviews
    * @return
    */
-  public static int getNumReviews(String email_user, int num_reviews) {
+  public static int getNumReviewsAll(String email_user, int num_reviews) {
     int number_of_reviews = 0;
     try {
       FileReader reader = new FileReader(REVIEW_FILE_NAME);
@@ -656,6 +691,42 @@ public class DataLoader extends DataWriter {
   }
 
   /**
+   * This method takes in 2 params and returns a String array by populating it from the review json file,
+   * if param1 matches email from review json file and param1 natches the email from the review json file.
+   * This is done to display reviews given by a specific user that are stored in the review json file.
+   * @param1 email_user
+   * @param2 reviewArray
+   * @return
+   */
+  public static String[] displayReviewsAllJSON(String email_user, String[] reviewArray) {
+    try {
+      FileReader reader = new FileReader(REVIEW_FILE_NAME);
+      JSONParser parser = new JSONParser();
+      JSONArray reviewJSON = (JSONArray)new JSONParser().parse(reader);
+
+      for(int i=0; i < reviewJSON.size(); i++) {
+        JSONObject review_JSON = (JSONObject)reviewJSON.get(i);
+        String email = (String)review_JSON.get(REVIEW_EMAIL);
+        String type = (String)review_JSON.get(REVIEW_TYPE);
+        String name = (String)review_JSON.get(REVIEW_NAME);
+        String description = (String)review_JSON.get(REVIEW_DESCRIPTION);
+        String rating = (String)review_JSON.get(REVIEW_USER_RATING);
+
+        if (email_user.equals(email)) {
+          String combined_string = type + " Name: " + name + "\nReview: " + description + "\nUser Rating: " + rating + "\n";
+          reviewArray[i] = combined_string;
+        }
+      }
+
+      return reviewArray;
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return reviewArray;
+  }
+
+  /**
    * This method takes in 3 params and returns a String array by populating it from the review json file,
    * if param1 matches email from review json file and param2 natches the type from the review json file.
    * This is done to display reviews given by a specific user that are stored in the review json file.
@@ -664,7 +735,7 @@ public class DataLoader extends DataWriter {
    * @param3 reviewArray
    * @return
    */
-  public static String[] displayReviewsJSON(String email_user, String type, String[] reviewArray) {
+  public static String[] displayReviewsTypeJSON(String email_user, String type, String[] reviewArray) {
     try {
       FileReader reader = new FileReader(REVIEW_FILE_NAME);
       JSONParser parser = new JSONParser();
@@ -679,7 +750,7 @@ public class DataLoader extends DataWriter {
         String rating = (String)review_JSON.get(REVIEW_USER_RATING);
 
         if (email_user.equals(email) && type.equalsIgnoreCase(type1)) {
-          String combined_string = type + " Name: " + name + "\nReview: " + description + "\nUser Rating: " + rating;
+          String combined_string = type + " Name: " + name + "\nReview: " + description + "\nUser Rating: " + rating + "\n";
           reviewArray[i] = combined_string;
         }
       }
@@ -703,7 +774,8 @@ public class DataLoader extends DataWriter {
    * @param3 theater
    * @return
    */
-  public static int showTimeNumber(int num, String movie, String theater) {
+  public static int showTimeNumber(String movie, String theater) {
+    int num = 0;
     try {
       FileReader reader = new FileReader(SHOWTIME_FILE_NAME);
       JSONParser parser = new JSONParser();

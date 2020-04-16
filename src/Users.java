@@ -12,7 +12,7 @@ public class Users {
   /**
    * Loads users info lists into the array from json files.
    */
-  private Users() {
+  public Users() {
     userList = DataLoader.loadUser();
   }
 
